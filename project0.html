@@ -4,15 +4,42 @@
     <title>CS 180 Project 0</title>
     <style>
         body {
-            font-family: Georgia, serif;
+            font-family: Georgia, "Times New Roman", serif;
             background-color: beige;
-            margin: 40px;
+            color: #3b332a;
+            margin: 0;
+            padding: 60px 20px 100px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.3em;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        h1 + p {
+            color: #6b6152;
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 60px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8cfba;
+            letter-spacing: 0.5px;
         }
         .row {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 16px;
             align-items: flex-end;
+            margin-top: 20px;
+        }
+        .row img,
+        .gif {
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(59, 51, 42, 0.18);
         }
         .row img {
             height: 340px;
@@ -23,38 +50,50 @@
             text-align: center;
         }
         figcaption {
-            font-size: 0.9em;
+            margin-top: 8px;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        .caption {
+            max-width: 700px;
+            margin-top: 18px;
+            line-height: 1.6;
+            color: #4a4234;
         }
     </style>
 </head>
 <body>
-    <h1>CS 180 Project 0</h1>
-    <p>Kavish Kondap</p>
+    <div class="container">
+        <h1>CS 180 Project 0</h1>
+        <p>Kavish Kondap</p>
 
-    <h2>Part 1</h2>
-    <div class="row">
-        <img src="project0_photos/part%201/0.jpeg" alt="Headshot at 0.5x zoom">
-        <img src="project0_photos/part%201/1.jpeg" alt="Headshot at increasing zoom">
-        <img src="project0_photos/part%201/2.jpeg" alt="Headshot at increasing zoom">
-        <img src="project0_photos/part%201/5.jpeg" alt="Headshot at 10x zoom">
+        <h2>Part 1</h2>
+        <div class="row">
+            <img src="project0_photos/part%201/0.jpeg" alt="Headshot at 0.5x zoom">
+            <img src="project0_photos/part%201/1.jpeg" alt="Headshot at increasing zoom">
+            <img src="project0_photos/part%201/2.jpeg" alt="Headshot at increasing zoom">
+            <img src="project0_photos/part%201/5.jpeg" alt="Headshot at 10x zoom">
+        </div>
+        <p class="caption">Pictures of my friend at varying focal lengths. I shot these on an iPhone 16 Plus, starting close-up with 0.5x zoom, and stepping back while keeping his face centered, until I reached 10x zoom, taking photos at each step. As seen above, his face begins heavily distorted, but slowly becomes more proportional as the zoom increases.</p>
+
+        <h2>Part 2</h2>
+        <div class="row">
+            <figure>
+                <img src="project0_photos/part%202/closer.jpeg" alt="Close photo of Doe Library facade">
+                <figcaption>Close</figcaption>
+            </figure>
+            <figure>
+                <img src="project0_photos/part%202/farther.jpeg" alt="Far photo of Doe Library facade">
+                <figcaption>Far</figcaption>
+            </figure>
+        </div>
+        <p class="caption">Above are my close/far photos of a building facade, specifically of the Doe library on campus. I found that the close photo revealed more depth, and appeared less "flat" than the far away photo. Specifically, this is most apparent in the middle of the photo (right above the door), where the columns in the far photo appear flat, and the same depth as the windows behind them. In comparison, in the close picture, the columns have more apparent curvature, and seem to be visually separated from the windows behind them.</p>
+
+        <h2>Part 3</h2>
+        <img class="gif" src="project0_photos/part%203/dolly_zoom.gif" alt="Dolly zoom of a stuffed toy on a chair" height="600">
+        <p class="caption">Dolly zoom of a stuffed toy on a chair.</p>
     </div>
-    <p>Pictures of my friend at varying focal lengths. I shot these on an iPhone 16 Plus, starting close-up with 0.5x zoom, and stepping back while keeping his face centered, until I reached 10x zoom, taking photos at each step. As seen above, his face begins heavily distorted, but slowly becomes more proportional as the zoom increases.</p>
-
-    <h2>Part 2</h2>
-    <div class="row">
-        <figure>
-            <img src="project0_photos/part%202/closer.jpeg" alt="Close photo of Doe Library facade">
-            <figcaption>Close</figcaption>
-        </figure>
-        <figure>
-            <img src="project0_photos/part%202/farther.jpeg" alt="Far photo of Doe Library facade">
-            <figcaption>Far</figcaption>
-        </figure>
-    </div>
-    <p>Above are my close/far photos of a building facade, specifically of the Doe library on campus. I found that the close photo revealed more depth, and appeared less "flat" than the far away photo. Specifically, this is most apparent in the middle of the photo (right above the door), where the columns in the far photo appear flat, and the same depth as the windows behind them. In comparison, in the close picture, the columns have more apparent curvature, and seem to be visually separated from the windows behind them.</p>
-
-    <h2>Part 3</h2>
-    <img src="project0_photos/part%203/dolly_zoom.gif" alt="Dolly zoom of a stuffed toy on a chair" height="600">
-    <p>Dolly zoom of a stuffed toy on a chair.</p>
 </body>
 </html>
