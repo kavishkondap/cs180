@@ -11,7 +11,7 @@
             padding: 60px 20px 100px;
         }
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         h1 {
@@ -32,21 +32,24 @@
         .row {
             display: flex;
             flex-wrap: nowrap;
-            overflow-x: auto;
             gap: 16px;
-            align-items: flex-end;
+            align-items: flex-start;
             margin-top: 20px;
-            padding-bottom: 8px;
         }
         .row img,
         .gif {
             border-radius: 6px;
             box-shadow: 0 2px 10px rgba(59, 51, 42, 0.18);
         }
+        .row > figure,
+        .row > img {
+            flex: 1 1 0;
+            min-width: 0;
+        }
         .row img {
-            height: 340px;
-            width: auto;
-            flex-shrink: 0;
+            width: 100%;
+            height: auto;
+            display: block;
         }
         figure {
             margin: 0;
