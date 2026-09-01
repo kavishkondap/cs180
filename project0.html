@@ -31,10 +31,12 @@
         }
         .row {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
             gap: 16px;
             align-items: flex-end;
             margin-top: 20px;
+            padding-bottom: 8px;
         }
         .row img,
         .gif {
@@ -44,6 +46,7 @@
         .row img {
             height: 340px;
             width: auto;
+            flex-shrink: 0;
         }
         figure {
             margin: 0;
