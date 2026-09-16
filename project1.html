@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS 180 Project 1</title>
+    <style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background-color: beige;
+            color: #3b332a;
+            margin: 0;
+            padding: 60px 20px 100px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.3em;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        h1 + p {
+            color: #6b6152;
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 60px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8cfba;
+            letter-spacing: 0.5px;
+        }
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+            font-weight: normal;
+        }
+        p {
+            max-width: 760px;
+            line-height: 1.65;
+            color: #4a4234;
+        }
+        a {
+            color: #6b4f2a;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        a:hover {
+            border-bottom-color: #6b4f2a;
+        }
+        .back {
+            display: inline-block;
+            margin-bottom: 28px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-start;
+            margin-top: 24px;
+        }
+        .row > figure {
+            flex: 1 1 0;
+            min-width: 240px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 22px;
+            margin-top: 24px;
+        }
+        figure {
+            margin: 0;
+            text-align: center;
+        }
+        figure > a {
+            display: block;
+            border-bottom: none;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(59, 51, 42, 0.18);
+            transition: box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        figure > a:hover img {
+            box-shadow: 0 4px 16px rgba(59, 51, 42, 0.35);
+            opacity: 0.9;
+        }
+        figcaption {
+            margin-top: 8px;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        figcaption span {
+            display: block;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            font-size: 0.95em;
+            color: #a89f8f;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 24px;
+            font-size: 0.92em;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px 14px 8px 0;
+            border-bottom: 1px solid #ded5c0;
+        }
+        th {
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            color: #8a8071;
+        }
+        code {
+            font-family: "SF Mono", Menlo, monospace;
+            font-size: 0.88em;
+            background: #ece4d0;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+        .formula {
+            max-width: 760px;
+            margin: 22px 0;
+            padding: 18px 22px;
+            background: #f1ead9;
+            border-left: 2px solid #c9bda0;
+            border-radius: 4px;
+            font-size: 1.12em;
+            line-height: 1.9;
+            text-align: center;
+            color: #3b332a;
+        }
+        .formula .where {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.72em;
+            line-height: 1.6;
+            color: #6b6152;
+            text-align: left;
+        }
+        .formula i {
+            font-size: 1.02em;
+        }
+        .note {
+            border-left: 2px solid #d8cfba;
+            padding-left: 16px;
+            color: #6b6152;
+            font-style: italic;
+        }
+        .notation {
+            max-width: 760px;
+            margin-top: 28px;
+            padding-left: 16px;
+            border-left: 2px solid #d8cfba;
+            font-size: 0.85em;
+            line-height: 1.75;
+            color: #6b6152;
+        }
+        .hint {
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #a89f8f;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back" href="index.html">&larr; Portfolio</a>
+        <h1>CS 180 Project 1</h1>
+        <p>Colorizing the Prokudin-Gorskii Photo Collection &middot; Kavish Kondap</p>
+
+        <h2>Overview</h2>
+        <p>Between 1905 and 1915, Sergei Mikhailovich Prokudin-Gorskii travelled around the Russian Empire
+        taking photos of various people and scenery. Since color film was not yet invented, he instead took
+        three separate exposures through different colored filters (red, green, and blue), since projecting
+        all three overlaid could reproduce the original color image.</p>
+
+        <p>For this project, my goal was to computationally realign these three frames for any given image
+        taken by Prokudin-Gorskii. As input, we receive a grayscale image with the B, G, and R channels
+        stacked vertically, in that order. Out of curiosity, I tried the naive approach of simply splitting
+        the pane into three and stacking them without any alignment. As seen below, this leads to obvious
+        smearing of the subject of the photo and a blurry image, since the frames are not correctly
+        aligned.</p>
+
+        <div class="row">
+            <figure style="flex: 0 0 240px;">
+                <a href="project1_photos/full/intro/plate_cathedral.jpg" target="_blank" rel="noopener">
+                    <img src="project1_photos/intro/plate_cathedral.jpg" alt="Raw glass plate scan, three vertically stacked exposures">
+                </a>
+                <figcaption>The raw plate<span>B, G, R from top to bottom</span></figcaption>
+            </figure>
+            <figure style="flex: 0 0 420px;">
+                <a href="project1_photos/intro/unaligned_cathedral.jpg" target="_blank" rel="noopener">
+                    <img src="project1_photos/intro/unaligned_cathedral.jpg" alt="Naive stack of the three channels with no alignment">
+                </a>
+                <figcaption>Stacked with no alignment<span>Color fringing on every edge</span></figcaption>
+            </figure>
+        </div>
+        <p class="hint">Every image on this page is clickable and opens at full resolution.</p>
+
+        <p class="note">One convention before the results. I report a displacement as <code>(x, y)</code> with
+        the origin at the <strong>top-left</strong> corner, so positive <code>x</code> moves a channel
+        <strong>right</strong> and positive <code>y</code> moves it <strong>down</strong>. Blue is always the
+        reference and stays fixed at <code>(0, 0)</code>. The numbers listed are what I applied to green and
+        red to bring them onto blue.</p>
+
+        <h2>Single-Scale Alignment</h2>
+        <p>The most direct approach to align images is to do a grid search over small offsets from the naive
+        alignment above. In other words, if we choose to keep, say, the blue frame fixed, we slide the red and
+        green frames separately on top of the blue frame and check when they are best aligned. Specifically,
+        we can check every integer displacement in the window <code>[-15, 15] &times; [-15, 15]</code>. If we
+        are dealing with a small image, where the possible displacement falls within this range, this
+        technique will allow us to align the images through a simple grid search of these 961 possible
+        shifts.</p>
+
+        <h3>Ignoring the borders</h3>
+        <p>I realized while working on this project that all the images in the dataset had a fringe of
+        black/white on the border. Since these fringes are inconsistent across frames, they would count
+        towards the similarity score, and throw off the alignment, especially since they fluctuate between
+        white/black, leading to high contrast between frames. To overcome this, I crop 10% of the width and
+        height from all 4 sides before applying my alignment algorithm in the middle 80% &times; 80% of the
+        image. For the results, I can keep the original image, and use the offsets found from shifting the
+        cropped images.</p>
+
+        <h3>The scoring metric</h3>
+        <p>In order to determine if a given shift is &ldquo;good&rdquo;, we need a scoring metric. For this
+        project I use two different metrics, L2 distance and NCC. First, for L2, which is the Euclidean
+        distance between two channels:</p>
+        <div class="formula">
+            L2(<i>A</i>, <i>B</i>) = &radic;<span style="border-top:1px solid #3b332a; padding:0 4px;">&sum;<sub>(<i>i</i>,<i>j</i>) &isin; &Omega;</sub> [ <i>A</i>(<i>i</i>,<i>j</i>) &minus; <i>B</i>(<i>i</i>,<i>j</i>) ]<sup>2</sup></span>
+        </div>
+        <p>Next, for normalized cross-correlation, I subtract the mean from each channel, then normalize both
+        and take the dot product.</p>
+        <div class="formula">
+            NCC(<i>A</i>, <i>B</i>) = &sum;<sub>(<i>i</i>,<i>j</i>) &isin; &Omega;</sub> <i>A</i>&prime;(<i>i</i>,<i>j</i>) &middot; <i>B</i>&prime;(<i>i</i>,<i>j</i>)
+        </div>
+        <p>Because NCC throws away the mean brightness and the overall contrast, it should in principle handle
+        exposures made through different filters better than L2 does.</p>
+        <p class="notation"><strong>Notation.</strong> <i>A</i> and <i>B</i> are the two channels being
+        compared, and &Omega; is the set of pixels where they still overlap once one has been shifted, so the
+        score is only computed over that overlap. <i>A</i>&prime; and <i>B</i>&prime; are the mean-subtracted
+        channels rescaled to unit length, so <i>A</i>&prime; = (<i>A</i> &minus; mean <i>A</i>) /
+        &#8214;<i>A</i> &minus; mean <i>A</i>&#8214;. A lower L2 means a better match, while NCC goes
+        <i>up</i> as the match improves, so I negate it and minimize either way.</p>
+
+        <h3>Results</h3>
+        <p>All three low-resolution images align correctly under both metrics, and the two metrics agree on
+        every single offset.</p>
+        <div class="row">
+  <figure><a href="project1_photos/single_scale/l2/cathedral.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/l2/cathedral.jpg" alt="Cathedral, L2"></a><figcaption>Cathedral, L2<span>G (2, 5) &middot; R (3, 12) &middot; 0.15 s</span></figcaption></figure>
+  <figure><a href="project1_photos/single_scale/ncc/cathedral.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/ncc/cathedral.jpg" alt="Cathedral, NCC"></a><figcaption>Cathedral, NCC<span>G (2, 5) &middot; R (3, 12) &middot; 0.33 s</span></figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project1_photos/single_scale/l2/monastery.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/l2/monastery.jpg" alt="Monastery, L2"></a><figcaption>Monastery, L2<span>G (2, -3) &middot; R (2, 3) &middot; 0.16 s</span></figcaption></figure>
+  <figure><a href="project1_photos/single_scale/ncc/monastery.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/ncc/monastery.jpg" alt="Monastery, NCC"></a><figcaption>Monastery, NCC<span>G (2, -3) &middot; R (2, 3) &middot; 0.35 s</span></figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project1_photos/single_scale/l2/tobolsk.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/l2/tobolsk.jpg" alt="Tobolsk, L2"></a><figcaption>Tobolsk, L2<span>G (3, 3) &middot; R (3, 6) &middot; 0.16 s</span></figcaption></figure>
+  <figure><a href="project1_photos/single_scale/ncc/tobolsk.jpg" target="_blank" rel="noopener"><img src="project1_photos/single_scale/ncc/tobolsk.jpg" alt="Tobolsk, NCC"></a><figcaption>Tobolsk, NCC<span>G (3, 3) &middot; R (3, 6) &middot; 0.33 s</span></figcaption></figure>
+</div>
+
+        <h2>Multi-Scale Pyramid Alignment</h2>
+        <p>For the full-scale TIFF images (around 3700 &times; 3200 pixels), doing a brute force would require
+        searching pixel-by-pixel over a prohibitively large area due to the large computational cost. Instead,
+        I use an image pyramid to search at different resolutions.</p>
+
+        <h3>Pyramid Methodology</h3>
+        <p>In order to reduce the computational cost of searching for the optimal alignment, we can take
+        advantage of the fact that searching at a lower resolution gives us a rough idea of where the optimal
+        alignment is. Essentially, if we downscale our image to the size of the images in the single-scale
+        experiments above, we can do our dense <code>[-15, 15] &times; [-15, 15]</code> search and find a
+        reasonable region for where the optimal alignment is. Then, if we scale back up the resolution, we can
+        search in the area around where the low-res image alignment procedure found its optimal alignment. If
+        we do this in steps, from lowest resolution, and slowly scaling back up to the highest resolution, we
+        can substantially reduce the search cost of alignment.</p>
+
+        <p>I implemented this recursively in Python, using scikit-image for scaling down my images with
+        anti-aliasing. Specifically, I would scale the image down by 1/2 on each dimension (aka, the scaled
+        down image is 1/4 the size of the original) repeatedly until both sides of the image were under 512
+        pixels. Then, I would run my single-scale grid search, and scale back up the image. At the higher
+        resolutions, I initialize my search to be centered around where the lower resolution found the best
+        alignment. With this, the computation drops from around one search with 130,000 candidates to four
+        searches with 961 candidates each, and all of my alignments finish within a minute with L2 and
+        NCC.</p>
+
+        <h3>The provided images</h3>
+        <p>These are the eleven full-resolution TIFF plates from the provided data. The other three provided
+        images, cathedral, monastery and tobolsk, are the low-resolution JPEGs shown in the single-scale
+        section above. Offsets in the captions are from the L2 run.</p>
+        <div class="grid">
+  <figure><a href="project1_photos/full/multi_scale/church.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/church.jpg" alt="Church aligned"></a><figcaption>Church<span>G (4, 25) &middot; R (-4, 59)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/emir.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/emir.jpg" alt="Emir of Bukhara aligned"></a><figcaption>Emir of Bukhara<span>G (24, 49) &middot; R (43, 69)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/harvesters.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/harvesters.jpg" alt="Harvesters aligned"></a><figcaption>Harvesters<span>G (16, 59) &middot; R (13, 124)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/icon.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/icon.jpg" alt="Icon aligned"></a><figcaption>Icon<span>G (17, 41) &middot; R (23, 90)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/ilemselga.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/ilemselga.jpg" alt="Ilemselga aligned"></a><figcaption>Ilemselga<span>G (7, 40) &middot; R (11, 130)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/melons.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/melons.jpg" alt="Melons aligned"></a><figcaption>Melons<span>G (11, 82) &middot; R (13, 178)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/religous_painting.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/religous_painting.jpg" alt="Religious painting aligned"></a><figcaption>Religious Painting<span>G (3, 28) &middot; R (7, 68)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/self_portrait.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/self_portrait.jpg" alt="Self portrait aligned"></a><figcaption>Self Portrait<span>G (29, 79) &middot; R (37, 176)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/siren.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/siren.jpg" alt="Lilac aligned"></a><figcaption>Siren (Lilac)<span>G (-6, 49) &middot; R (-25, 96)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/three_generations.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/three_generations.jpg" alt="Three generations aligned"></a><figcaption>Three Generations<span>G (14, 53) &middot; R (11, 112)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/wharf.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/wharf.jpg" alt="Wharf aligned"></a><figcaption>Wharf<span>G (-7, 15) &middot; R (-16, 83)</span></figcaption></figure>
+</div>
+
+        <h3>Images I chose from the collection</h3>
+        <p>These three are my own picks out of the Library of Congress digitization of the collection. Each
+        caption links to its catalog entry, and clicking the image itself gives you my aligned version at full
+        resolution.</p>
+        <div class="grid">
+  <figure><a href="project1_photos/full/multi_scale/crimea.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/crimea.jpg" alt="In Alupka, Crimea, aligned"></a><figcaption><a href="https://www.loc.gov/item/2018679062/" target="_blank" rel="noopener">In Alupka, Crimea</a><span>G (-11, 33) &middot; R (-27, 140)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/catholic_monastery.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/catholic_monastery.jpg" alt="Catholic monastery in Italy, aligned"></a><figcaption><a href="https://www.loc.gov/item/2018679125/" target="_blank" rel="noopener">Catholic Monastery, Italy</a><span>G (-6, 50) &middot; R (-13, 114)</span></figcaption></figure>
+  <figure><a href="project1_photos/full/multi_scale/levee.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/levee.jpg" alt="Current-deflecting levee near Yablonskiy Island, aligned"></a><figcaption><a href="https://www.loc.gov/item/2018678845/" target="_blank" rel="noopener">Levee, Yablonskiy Island</a><span>G (15, 14) &middot; R (19, 38)</span></figcaption></figure>
+</div>
+
+        <h3>Computed offsets</h3>
+        <table>
+        <thead><tr><th>Image</th><th>L2 green (x, y)</th><th>L2 red (x, y)</th><th>L2 runtime</th><th>NCC green (x, y)</th><th>NCC red (x, y)</th><th>NCC runtime</th></tr></thead>
+        <tbody>
+        <tr><td>Church</td><td>(4, 25)</td><td>(-4, 59)</td><td>12.16 s</td><td>(4, 25)</td><td>(-4, 58)</td><td>37.56 s</td></tr>
+        <tr><td>Emir of Bukhara</td><td>(24, 49)</td><td>(43, 69)</td><td>12.39 s</td><td>(24, 49)</td><td>(57, 103)</td><td>36.79 s</td></tr>
+        <tr><td>Harvesters</td><td>(16, 59)</td><td>(13, 124)</td><td>13.21 s</td><td>(17, 60)</td><td>(14, 124)</td><td>39.90 s</td></tr>
+        <tr><td>Icon</td><td>(17, 41)</td><td>(23, 90)</td><td>12.74 s</td><td>(17, 41)</td><td>(23, 89)</td><td>39.24 s</td></tr>
+        <tr><td>Ilemselga</td><td>(7, 40)</td><td>(11, 130)</td><td>13.09 s</td><td>(7, 40)</td><td>(11, 130)</td><td>39.43 s</td></tr>
+        <tr><td>Melons</td><td>(11, 82)</td><td>(13, 178)</td><td>12.92 s</td><td>(10, 82)</td><td>(13, 178)</td><td>38.47 s</td></tr>
+        <tr><td>Religious Painting</td><td>(3, 28)</td><td>(7, 68)</td><td>12.54 s</td><td>(3, 28)</td><td>(7, 68)</td><td>37.53 s</td></tr>
+        <tr><td>Self Portrait</td><td>(29, 79)</td><td>(37, 176)</td><td>12.86 s</td><td>(29, 79)</td><td>(37, 176)</td><td>40.79 s</td></tr>
+        <tr><td>Siren (Lilac)</td><td>(-6, 49)</td><td>(-25, 96)</td><td>13.48 s</td><td>(-6, 49)</td><td>(-25, 96)</td><td>39.60 s</td></tr>
+        <tr><td>Three Generations</td><td>(14, 53)</td><td>(11, 112)</td><td>12.55 s</td><td>(14, 53)</td><td>(11, 112)</td><td>39.57 s</td></tr>
+        <tr><td>Wharf</td><td>(-7, 15)</td><td>(-16, 83)</td><td>12.91 s</td><td>(-7, 15)</td><td>(-16, 83)</td><td>37.40 s</td></tr>
+        <tr><td>In Alupka, Crimea</td><td>(-11, 33)</td><td>(-27, 140)</td><td>13.72 s</td><td>(-11, 33)</td><td>(-27, 140)</td><td>39.67 s</td></tr>
+        <tr><td>Catholic Monastery, Italy</td><td>(-6, 50)</td><td>(-13, 114)</td><td>12.73 s</td><td>(-6, 50)</td><td>(-13, 114)</td><td>37.05 s</td></tr>
+        <tr><td>Levee, Yablonskiy Island</td><td>(15, 14)</td><td>(19, 38)</td><td>12.41 s</td><td>(15, 14)</td><td>(19, 38)</td><td>38.06 s</td></tr>
+        </tbody>
+        </table>
+        <p>NCC and L2 are identical for 9/14 of the plates, and one pixel off for church, harvesters, icon,
+        and melons, which is imperceptible at such high resolutions. Emir of Bukhara is the only image where
+        there is clear visual misalignment using both methods.</p>
+
+        <h2>Bells &amp; Whistles: Aligning on Gradients</h2>
+        <p>For Emir of Bukhara, the raw brightness of the panes differs substantially due to the vibrant blue
+        of the emir's robe. Specifically, since it is blue, the blue pane has high brightness in that region,
+        whereas the green and red are much less saturated. As a result, the L2/NCC is not indicative of
+        alignment, since the panes themselves are simply different even at perfect alignment.</p>
+        <p>One way to circumvent this is by aligning on an edge map of each pane rather than the raw pixels.
+        The idea behind this is that, although the saturation of each pane is very different, the edges should
+        be fairly similar, since they are saturation invariant. To do this, I use <code>np.gradient</code>,
+        which returns the partial derivatives, both row-wise and column-wise, and then combine them to get a
+        single gradient magnitude.</p>
+        <div class="formula">
+            &#8214;&nabla;<i>A</i>&#8214;(<i>x</i>,<i>y</i>) = &radic;<span style="border-top:1px solid #3b332a; padding:0 4px;">(&part;<i>A</i>/&part;<i>x</i>)<sup>2</sup> + (&part;<i>A</i>/&part;<i>y</i>)<sup>2</sup></span>
+        </div>
+        <p>The top row is the three raw exposures. Look at how differently the robe reads in each one: bright
+        in blue, mid gray in green, nearly black in red. The bottom row is the gradient magnitude of each.
+        Notice how the gradients are much more similar and seem to be invariant to the change in saturation
+        that the raw pixels experience.</p>
+        <div class="row">
+            <figure><a href="project1_photos/full/gradient/emir_raw_b.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_raw_b.jpg" alt="Emir blue channel"></a><figcaption>Blue, raw</figcaption></figure>
+            <figure><a href="project1_photos/full/gradient/emir_raw_g.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_raw_g.jpg" alt="Emir green channel"></a><figcaption>Green, raw</figcaption></figure>
+            <figure><a href="project1_photos/full/gradient/emir_raw_r.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_raw_r.jpg" alt="Emir red channel"></a><figcaption>Red, raw</figcaption></figure>
+        </div>
+        <div class="row">
+            <figure><a href="project1_photos/full/gradient/emir_grad_b.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_grad_b.jpg" alt="Emir blue channel gradient magnitude"></a><figcaption>Blue, gradient</figcaption></figure>
+            <figure><a href="project1_photos/full/gradient/emir_grad_g.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_grad_g.jpg" alt="Emir green channel gradient magnitude"></a><figcaption>Green, gradient</figcaption></figure>
+            <figure><a href="project1_photos/full/gradient/emir_grad_r.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_grad_r.jpg" alt="Emir red channel gradient magnitude"></a><figcaption>Red, gradient</figcaption></figure>
+        </div>
+        <h3>Before and after</h3>
+        <p>Switching the features from pixels to gradients moves red from <code>(43, 69)</code> to
+        <code>(40, 107)</code>, and the ghosting disappears. L2 and NCC also converge to the same solution
+        using the gradient map, rather than the raw pixels.</p>
+        <div class="row">
+            <figure>
+                <a href="project1_photos/full/multi_scale/emir.jpg" target="_blank" rel="noopener"><img src="project1_photos/multi_scale/l2/emir.jpg" alt="Emir aligned on raw pixels, misaligned"></a>
+                <figcaption>Before, raw pixels<span>G (24, 49) &middot; R (43, 69) &middot; 12.39 s</span></figcaption>
+            </figure>
+            <figure>
+                <a href="project1_photos/full/gradient/emir_gradient_l2.jpg" target="_blank" rel="noopener"><img src="project1_photos/gradient/emir_gradient_l2.jpg" alt="Emir aligned on gradients, correct"></a>
+                <figcaption>After, gradients<span>G (24, 49) &middot; R (40, 107) &middot; 7.39 s</span></figcaption>
+            </figure>
+        </div>
+
+        <h3>Offsets and runtimes</h3>
+        <table>
+        <thead><tr><th>Features</th><th>Metric</th><th>Green (x, y)</th><th>Red (x, y)</th><th>Runtime</th><th>Result</th></tr></thead>
+        <tbody>
+        <tr><td>Raw pixels</td><td>L2</td><td>(24, 49)</td><td>(43, 69)</td><td>12.39 s</td><td>Red misaligned</td></tr>
+        <tr><td>Raw pixels</td><td>NCC</td><td>(24, 49)</td><td>(57, 103)</td><td>36.79 s</td><td>Red misaligned</td></tr>
+        <tr><td>Gradients</td><td>L2</td><td>(24, 49)</td><td>(40, 107)</td><td>7.39 s</td><td>Aligned</td></tr>
+        <tr><td>Gradients</td><td>NCC</td><td>(24, 49)</td><td>(40, 107)</td><td>20.60 s</td><td>Aligned</td></tr>
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>
