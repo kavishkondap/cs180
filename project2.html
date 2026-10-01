@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS 180 Project 2</title>
+    <style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background-color: beige;
+            color: #3b332a;
+            margin: 0;
+            padding: 60px 20px 100px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.3em;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        h1 + p {
+            color: #6b6152;
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 60px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8cfba;
+            letter-spacing: 0.5px;
+        }
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+            font-weight: normal;
+        }
+        p {
+            max-width: 760px;
+            line-height: 1.65;
+            color: #4a4234;
+        }
+        a {
+            color: #6b4f2a;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        a:hover {
+            border-bottom-color: #6b4f2a;
+        }
+        .back {
+            display: inline-block;
+            margin-bottom: 28px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-start;
+            margin-top: 24px;
+        }
+        .row > figure {
+            flex: 1 1 0;
+            min-width: 240px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 22px;
+            margin-top: 24px;
+        }
+        figure {
+            margin: 0;
+            text-align: center;
+        }
+        figure > a {
+            display: block;
+            border-bottom: none;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(59, 51, 42, 0.18);
+            transition: box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        figure > a:hover img {
+            box-shadow: 0 4px 16px rgba(59, 51, 42, 0.35);
+            opacity: 0.9;
+        }
+        figcaption {
+            margin-top: 8px;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        figcaption span {
+            display: block;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            font-size: 0.95em;
+            color: #a89f8f;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 24px;
+            font-size: 0.92em;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px 14px 8px 0;
+            border-bottom: 1px solid #ded5c0;
+        }
+        th {
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            color: #8a8071;
+        }
+        code {
+            font-family: "SF Mono", Menlo, monospace;
+            font-size: 0.88em;
+            background: #ece4d0;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+        .formula {
+            max-width: 760px;
+            margin: 22px 0;
+            padding: 18px 22px;
+            background: #f1ead9;
+            border-left: 2px solid #c9bda0;
+            border-radius: 4px;
+            font-size: 1.12em;
+            line-height: 1.9;
+            text-align: center;
+            color: #3b332a;
+        }
+        .formula .where {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.72em;
+            line-height: 1.6;
+            color: #6b6152;
+            text-align: left;
+        }
+        .formula i {
+            font-size: 1.02em;
+        }
+        .note {
+            border-left: 2px solid #d8cfba;
+            padding-left: 16px;
+            color: #6b6152;
+            font-style: italic;
+        }
+        .notation {
+            max-width: 760px;
+            margin-top: 28px;
+            padding-left: 16px;
+            border-left: 2px solid #d8cfba;
+            font-size: 0.85em;
+            line-height: 1.75;
+            color: #6b6152;
+        }
+        .hint {
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #a89f8f;
+            margin-top: 14px;
+        }
+        pre {
+            max-width: 900px;
+            margin-top: 22px;
+            padding: 18px 22px;
+            background: #f1ead9;
+            border-left: 2px solid #c9bda0;
+            border-radius: 4px;
+            font-family: "SF Mono", Menlo, monospace;
+            font-size: 0.8em;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .row.tight {
+            gap: 10px;
+        }
+        .row.tight > figure {
+            min-width: 110px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back" href="index.html">&larr; Portfolio</a>
+        <h1>CS 180 Project 2</h1>
+        <p>Fun with Filters and Frequencies &middot; Kavish Kondap</p>
+
+        <h2>Overview</h2>
+        <p>This project covers filtering images and working with their frequencies. In Part 1, I implement convolution from scratch and use it for edge detection with finite difference and derivative of Gaussian filters. In Part 2, I use Gaussian filters to sharpen images, create hybrid images, and blend images together with Gaussian and Laplacian stacks.</p>
+        <h2>Part 1.1: Convolutions from Scratch</h2>
+        <p>I implemented convolution with numpy in two ways: with four for loops (two over the output pixels, two over the kernel), and with two for loops (over the output pixels, with the kernel loops replaced by an elementwise multiply and <code>np.sum</code>). Both versions flip the kernel across both axes first, and both pad the image with zeros. I support <code>same</code> padding (pad half the kernel size on each side, so the output is the same size as the input), <code>full</code> padding (pad the kernel size minus one on each side), and <code>valid</code> (no padding).</p>
+<pre>def conv(img, kernel: np.ndarray, padding: str = &quot;same&quot;, impl=&quot;2&quot;):
+    if impl == &quot;scipy&quot;:
+        return scipy.signal.convolve2d(img, kernel, mode=padding)
+
+    flipped_kernel = np.flip(kernel)  # flips across both axes
+
+    if padding == &quot;valid&quot;:
+        pass
+    elif padding == &quot;same&quot;:
+        pad_rows = (flipped_kernel.shape[0] // 2, flipped_kernel.shape[0] // 2)
+        pad_cols = (flipped_kernel.shape[1] // 2, flipped_kernel.shape[1] // 2)
+        img = np.pad(img, (pad_rows, pad_cols), mode=&quot;constant&quot;, constant_values=0)
+    elif padding == &quot;full&quot;:
+        pad_rows = (flipped_kernel.shape[0] - 1, flipped_kernel.shape[0] - 1)
+        pad_cols = (flipped_kernel.shape[1] - 1, flipped_kernel.shape[1] - 1)
+        img = np.pad(img, (pad_rows, pad_cols), mode=&quot;constant&quot;, constant_values=0)
+    else:
+        raise ValueError(
+            f&quot;{padding=} is not a valid input for padding. Options are valid, same and full&quot;
+        )
+
+    output_shape = (
+        img.shape[0] - flipped_kernel.shape[0] + 1,
+        img.shape[1] - flipped_kernel.shape[1] + 1,
+    )
+    output_img = np.zeros(output_shape)
+
+    if impl == &quot;4&quot;:
+        for row in range(output_shape[0]):
+            for col in range(output_shape[1]):
+                subtotal = 0
+                for krow in range(flipped_kernel.shape[0]):
+                    for kcol in range(flipped_kernel.shape[1]):
+                        subtotal += (
+                            flipped_kernel[krow, kcol] * img[row + krow, col + kcol]
+                        )
+                output_img[row, col] = subtotal
+    elif impl == &quot;2&quot;:
+        for row in range(output_shape[0]):
+            for col in range(output_shape[1]):
+                output_img[row, col] = np.sum(
+                    img[
+                        row : row + flipped_kernel.shape[0],
+                        col : col + flipped_kernel.shape[1],
+                    ]
+                    * flipped_kernel
+                )
+
+    return output_img</pre>
+        <p>To test it, I took a picture of myself, read it as grayscale, and convolved it with a 9 &times; 9 box filter, as well as the finite difference operators <code>Dx = [1, 0, -1]</code> and <code>Dy = [1, 0, -1]<sup>T</sup></code>. The results below use <code>same</code> padding.</p>
+<div class="row">
+  <figure><a href="project2_photos/part1_1_original.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_1_original.jpg" alt="Original"></a><figcaption>Original</figcaption></figure>
+  <figure><a href="project2_photos/part1_1_box_same_2.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_1_box_same_2.jpg" alt="9 &times; 9 box filter"></a><figcaption>9 &times; 9 box filter</figcaption></figure>
+  <figure><a href="project2_photos/part1_1_dx_same_2.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_1_dx_same_2.jpg" alt="Dx"></a><figcaption>Dx</figcaption></figure>
+  <figure><a href="project2_photos/part1_1_dy_same_2.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_1_dy_same_2.jpg" alt="Dy"></a><figcaption>Dy</figcaption></figure>
+</div>
+        <h3>Comparison with scipy</h3>
+        <p>I compared both implementations against <code>scipy.signal.convolve2d</code> for all three filters and all three padding modes. The outputs match, with a maximum absolute difference of around 10<sup>-12</sup>, which is floating point error. The runtimes below are for the 9 &times; 9 box filter on my 1024 &times; 768 photo with <code>same</code> padding.</p>
+        <table>
+        <thead><tr><th>Implementation</th><th>Runtime</th></tr></thead>
+        <tbody>
+        <tr><td>Four for loops</td><td>9.54 s</td></tr>
+        <tr><td>Two for loops</td><td>1.06 s</td></tr>
+        <tr><td><code>scipy.signal.convolve2d</code></td><td>0.63 s</td></tr>
+        </tbody>
+        </table>
+        <p>For boundaries, my implementation fills everything outside the image with zeros. This is the same as the scipy default (<code>boundary="fill"</code>, <code>fillvalue=0</code>), which is why the outputs match all the way to the border, and my <code>same</code>, <code>full</code>, and <code>valid</code> modes give the same output sizes as scipy's. Scipy also supports <code>wrap</code> and <code>symm</code> boundaries, which I did not implement. One effect of zero padding is visible in the box filter result, where the border of the image gets darker since the zeros are averaged in.</p>
+        <h2>Part 1.2: Finite Difference Operator</h2>
+        <p>To find the edges of the cameraman image, I convolve it with <code>Dx</code> and <code>Dy</code> to get the partial derivatives in x and y, and then combine them into the gradient magnitude.</p>
+        <div class="formula">
+            &#8214;&nabla;<i>f</i>&#8214; = &radic;<span style="border-top:1px solid #3b332a; padding:0 4px;">(&part;<i>f</i>/&part;<i>x</i>)<sup>2</sup> + (&part;<i>f</i>/&part;<i>y</i>)<sup>2</sup></span>
+        </div>
+<div class="row">
+  <figure><a href="project2_photos/part1_2_dx.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_dx.jpg" alt="Partial derivative in x"></a><figcaption>Partial derivative in x</figcaption></figure>
+  <figure><a href="project2_photos/part1_2_dy.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_dy.jpg" alt="Partial derivative in y"></a><figcaption>Partial derivative in y</figcaption></figure>
+  <figure><a href="project2_photos/part1_2_grad.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_grad.jpg" alt="Gradient magnitude"></a><figcaption>Gradient magnitude</figcaption></figure>
+</div>
+        <p>To get an edge image, I binarize the gradient magnitude with a threshold. I tried thresholds at multiples of 10% of 255, and three of them are shown below. I chose 76.5 (30% of 255). At 51, the edges are more complete, but there is still a lot of noise from the grass at the bottom of the image. At 76.5 almost all of the grass noise is gone, at the cost of losing the buildings in the background and parts of the tripod legs. At 102 there is no noise left, but the outline of the cameraman himself starts to break apart. I preferred removing the noise over keeping the background buildings, since the cameraman and the tripod are the main subject.</p>
+<div class="row">
+  <figure><a href="project2_photos/part1_2_51.0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_51.0.jpg" alt="Threshold 51"></a><figcaption>Threshold 51</figcaption></figure>
+  <figure><a href="project2_photos/part1_2_76.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_76.5.jpg" alt="Threshold 76.5"></a><figcaption>Threshold 76.5<span>Chosen</span></figcaption></figure>
+  <figure><a href="project2_photos/part1_2_102.0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_102.0.jpg" alt="Threshold 102"></a><figcaption>Threshold 102</figcaption></figure>
+</div>
+        <h2>Part 1.3: Derivative of Gaussian (DoG) Filter</h2>
+        <p>The results above are noisy, so here I first blur the image with a Gaussian filter and then repeat the same procedure. I create the 2D Gaussian with <code>cv2.getGaussianKernel</code> (kernel size 5, &sigma; = 2) and take the outer product of the 1D kernel with its transpose.</p>
+<div class="row">
+  <figure><a href="project2_photos/part1_3_blurred_cameraman.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_blurred_cameraman.jpg" alt="Blurred"></a><figcaption>Blurred</figcaption></figure>
+  <figure><a href="project2_photos/part1_3_dx.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dx.jpg" alt="Partial derivative in x"></a><figcaption>Partial derivative in x</figcaption></figure>
+  <figure><a href="project2_photos/part1_3_dy.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dy.jpg" alt="Partial derivative in y"></a><figcaption>Partial derivative in y</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part1_3_grad.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_grad.jpg" alt="Gradient magnitude"></a><figcaption>Gradient magnitude</figcaption></figure>
+  <figure><a href="project2_photos/part1_3_25.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_25.5.jpg" alt="Binarized"></a><figcaption>Binarized<span>Threshold 25.5</span></figcaption></figure>
+  <figure><a href="project2_photos/part1_2_76.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_2_76.5.jpg" alt="Binarized, no blur"></a><figcaption>Binarized, no blur<span>Threshold 76.5, from Part 1.2</span></figcaption></figure>
+</div>
+        <p>Compared to the finite difference result, the edges are thicker and smoother, and they are continuous instead of broken into small pieces. The noise from the grass is gone, since blurring removes the high frequency noise before the derivative is taken. Because of this, I can use a much lower threshold (25.5, or 10% of 255), which keeps the buildings in the background and the full tripod, both of which were lost in Part 1.2. The threshold has to be lower in general, since blurring also lowers the gradient magnitudes.</p>
+        <h3>DoG filters</h3>
+        <p>Instead of blurring and then taking the derivative, we can do both in a single convolution. Since convolution is associative, I convolve the Gaussian with <code>Dx</code> and <code>Dy</code> (with <code>full</code> padding) to get two derivative of Gaussian filters, shown below.</p>
+<div class="row" style="align-items: center;">
+  <figure style="flex: 0 0 280px;"><a href="project2_photos/part1_3_dx_gaussian_kernel.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dx_gaussian_kernel.jpg" alt="DoG filter, x"></a><figcaption>DoG filter, x<span>5 &times; 7</span></figcaption></figure>
+  <figure style="flex: 0 0 200px;"><a href="project2_photos/part1_3_dy_gaussian_kernel.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dy_gaussian_kernel.jpg" alt="DoG filter, y"></a><figcaption>DoG filter, y<span>7 &times; 5</span></figcaption></figure>
+</div>
+        <p>Convolving the original image with these two filters gives the same result as before. The maximum absolute difference between the two gradient magnitude images is around 10<sup>-13</sup> everywhere except within a few pixels of the image border. The border is different because of zero padding: when blurring first, the blurred image is cropped back to the image size before the derivative is taken, whereas the DoG filter sees the zero padding directly.</p>
+<div class="row">
+  <figure><a href="project2_photos/part1_3_dog_grad.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dog_grad.jpg" alt="Gradient magnitude, DoG"></a><figcaption>Gradient magnitude, DoG</figcaption></figure>
+  <figure><a href="project2_photos/part1_3_dog_25.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_dog_25.5.jpg" alt="Binarized, DoG"></a><figcaption>Binarized, DoG<span>Threshold 25.5</span></figcaption></figure>
+  <figure><a href="project2_photos/part1_3_25.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part1_3_25.5.jpg" alt="Binarized, blur then derivative"></a><figcaption>Binarized, blur then derivative<span>Threshold 25.5</span></figcaption></figure>
+</div>
+        <h2>Part 2.1: Image Sharpening</h2>
+        <p>An image looks sharper if it has stronger high frequencies. A Gaussian filter is a low pass filter, so blurring an image keeps only its low frequencies. If we subtract the blurred image from the original, we are left with only the high frequencies. Adding these back to the original, scaled by &alpha;, gives the sharpened image. This can be written as a single convolution, which is the unsharp mask filter:</p>
+        <div class="formula">
+            <i>f</i> + &alpha;(<i>f</i> &minus; <i>f</i> &lowast; <i>g</i>) = <i>f</i> &lowast; ((1 + &alpha;)<i>e</i> &minus; &alpha;<i>g</i>)
+        </div>
+        <p class="notation"><strong>Notation.</strong> <i>f</i> is the image, <i>g</i> is the Gaussian filter, <i>e</i> is the unit impulse (1 in the center, 0 everywhere else), and &alpha; is the sharpening amount. I use a Gaussian with &sigma; = 2 and kernel size 13 for the Taj Mahal and tree results below.</p>
+        <h3>Taj Mahal</h3>
+<div class="row">
+  <figure><a href="project2_photos/2_1_taj.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_1_taj.jpg" alt="Original"></a><figcaption>Original</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_taj_blurred.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_blurred.jpg" alt="Blurred"></a><figcaption>Blurred</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_taj_high_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_high_freq.jpg" alt="High frequencies"></a><figcaption>High frequencies</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_1_taj_alpha0.5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_alpha0.5.jpg" alt="&alpha; = 0.5"></a><figcaption>&alpha; = 0.5</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_taj_alpha1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_alpha1.jpg" alt="&alpha; = 1"></a><figcaption>&alpha; = 1</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_taj_alpha2.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_alpha2.jpg" alt="&alpha; = 2"></a><figcaption>&alpha; = 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_taj_alpha5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_taj_alpha5.jpg" alt="&alpha; = 5"></a><figcaption>&alpha; = 5</figcaption></figure>
+</div>
+        <p>As &alpha; increases, the details in the marble and the edges of the building become more defined. At &alpha; = 1 and &alpha; = 2 the image looks sharper than the original. At &alpha; = 5 it is oversharpened, with bright and dark halos around the edges.</p>
+        <h3>Tree</h3>
+<div class="row">
+  <figure><a href="project2_photos/2_1_tree.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_1_tree.jpg" alt="Original"></a><figcaption>Original</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_tree_blurred.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_tree_blurred.jpg" alt="Blurred"></a><figcaption>Blurred</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_1_tree_high_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_tree_high_freq.jpg" alt="High frequencies"></a><figcaption>High frequencies</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_tree_alpha1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_tree_alpha1.jpg" alt="Sharpened"></a><figcaption>Sharpened<span>&alpha; = 1</span></figcaption></figure>
+</div>
+        <h3>Blurring a sharp image, then sharpening it</h3>
+        <p>For this I picked a sharp image, blurred it with a larger Gaussian (&sigma; = 4, kernel size 25), and then sharpened the blurred image using the same Gaussian.</p>
+<div class="row">
+  <figure><a href="project2_photos/2_1_f1.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_1_f1.jpg" alt="Original"></a><figcaption>Original</figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_f1_blurred_input.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_f1_blurred_input.jpg" alt="Blurred"></a><figcaption>Blurred</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_1_f1_blurred_alpha1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_f1_blurred_alpha1.jpg" alt="Blurred, then sharpened"></a><figcaption>Blurred, then sharpened<span>&alpha; = 1</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_1_f1_blurred_alpha5.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_1_f1_blurred_alpha5.jpg" alt="Blurred, then sharpened"></a><figcaption>Blurred, then sharpened<span>&alpha; = 5</span></figcaption></figure>
+</div>
+        <p>The sharpened image looks better than the blurred one, since the edges have more contrast, but it does not recover the original. Fine details such as the small text on the car and the rain are still missing, and the edges are thicker than in the original. This is because blurring removes the highest frequencies entirely, and sharpening can only amplify the frequencies that are still in the image. It cannot bring back the ones that were removed.</p>
+        <h2>Part 2.2: Hybrid Images</h2>
+        <p>A hybrid image looks like one image up close and a different image from far away. Up close, the high frequencies dominate what we see, but from far away only the low frequencies are visible. So to make one, I take the low frequencies of one image and add them to the high frequencies of another. For the low pass filter I use a Gaussian, and for the high pass filter I subtract the Gaussian blurred image from the original (aka, the impulse filter minus the Gaussian). I keep color in both images. Each Gaussian has kernel size 6&sigma; + 1.</p>
+        <h3>Charlie Brown and Linus, full process</h3>
+        <p>This is my favorite result, so I show the whole process for it. I first align the two images by clicking two matching points in each image, which rescales, rotates, and crops them so that the points overlap.</p>
+<div class="row">
+  <figure><a href="project2_photos/2_2_charlie.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_charlie.jpg" alt="Original, Charlie Brown"></a><figcaption>Original, Charlie Brown<span>Low frequency image</span></figcaption></figure>
+  <figure><a href="project2_photos/2_2_linus.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_linus.jpg" alt="Original, Linus"></a><figcaption>Original, Linus<span>High frequency image</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_img0_aligned.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_img0_aligned.jpg" alt="Aligned, Charlie Brown"></a><figcaption>Aligned, Charlie Brown</figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_img1_aligned.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_img1_aligned.jpg" alt="Aligned, Linus"></a><figcaption>Aligned, Linus</figcaption></figure>
+</div>
+        <p>I chose the cutoff frequencies by experimenting with different values of &sigma;. I ended up with &sigma; = 12 for the low pass filter on Charlie Brown and &sigma; = 3 for the high pass filter on Linus. Since Linus is a line drawing, a small &sigma; on the high pass keeps only his thin outlines and removes everything else.</p>
+<div class="row">
+  <figure><a href="project2_photos/part_2_2_charlie_linus_low_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_low_freq.jpg" alt="Low pass, Charlie Brown"></a><figcaption>Low pass, Charlie Brown<span>&sigma; = 12</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_high_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_high_freq.jpg" alt="High pass, Linus"></a><figcaption>High pass, Linus<span>&sigma; = 3</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_hybrid.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_hybrid.jpg" alt="Hybrid"></a><figcaption>Hybrid</figcaption></figure>
+</div>
+        <p>Below is the log magnitude of the Fourier transform of each image. The low pass filtered Charlie Brown only has energy left in the center, which is the low frequencies. The high pass filtered Linus keeps the frequencies away from the center. The hybrid image has both.</p>
+<div class="row tight">
+  <figure><a href="project2_photos/part_2_2_charlie_linus_fft_img0_original.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_fft_img0_original.jpg" alt="Charlie Brown"></a><figcaption>Charlie Brown</figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_fft_img1_original.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_fft_img1_original.jpg" alt="Linus"></a><figcaption>Linus</figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_fft_low_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_fft_low_freq.jpg" alt="Low pass, Charlie Brown"></a><figcaption>Low pass, Charlie Brown</figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_fft_high_freq.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_fft_high_freq.jpg" alt="High pass, Linus"></a><figcaption>High pass, Linus</figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_charlie_linus_fft_hybrid.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_charlie_linus_fft_hybrid.jpg" alt="Hybrid"></a><figcaption>Hybrid</figcaption></figure>
+</div>
+        <h3>Derek and Nutmeg</h3>
+<div class="row">
+  <figure><a href="project2_photos/2_2_derek.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_derek.jpg" alt="Derek"></a><figcaption>Derek<span>Low frequency, &sigma; = 12</span></figcaption></figure>
+  <figure><a href="project2_photos/2_2_nutmeg.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_nutmeg.jpg" alt="Nutmeg"></a><figcaption>Nutmeg<span>High frequency, &sigma; = 8</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_derek_nutmeg_hybrid.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_derek_nutmeg_hybrid.jpg" alt="Hybrid"></a><figcaption>Hybrid</figcaption></figure>
+</div>
+        <h3>Lion and tiger</h3>
+<div class="row">
+  <figure><a href="project2_photos/2_2_lion.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_lion.jpg" alt="Lion"></a><figcaption>Lion<span>Low frequency, &sigma; = 10</span></figcaption></figure>
+  <figure><a href="project2_photos/2_2_tiger.jpg" target="_blank" rel="noopener"><img src="project2_photos/2_2_tiger.jpg" alt="Tiger"></a><figcaption>Tiger<span>High frequency, &sigma; = 6</span></figcaption></figure>
+  <figure><a href="project2_photos/part_2_2_lion_tiger_hybrid.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_2_lion_tiger_hybrid.jpg" alt="Hybrid"></a><figcaption>Hybrid</figcaption></figure>
+</div>
+        <p>The lion and tiger photos are from Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Male_lion_face.jpg" target="_blank" rel="noopener">lion</a> by Profberger and <a href="https://commons.wikimedia.org/wiki/File:Tiger_Face_(10971343685).jpg" target="_blank" rel="noopener">tiger</a> by Steve Wilson.</p>
+
+        <h2>Part 2.3: Gaussian and Laplacian Stacks</h2>
+        <p>A stack is the same as a pyramid, except the image is never downsampled, so every level is the same size as the original. For the Gaussian stack, each level is the previous level blurred with a Gaussian. Since I am not downsampling, I double &sigma; at every level instead. Each level of the Laplacian stack is the difference between two consecutive levels of the Gaussian stack, and the last level is the last level of the Gaussian stack, so that summing the Laplacian stack gives back the original image. I implemented both from scratch, using only <code>cv2.GaussianBlur</code> for the blur.</p>
+        <p>Below are the stacks for the apple and the orange, with 6 levels and &sigma; = 2 at the first level.</p>
+        <h3>Apple, Gaussian stack</h3>
+<div class="row tight">
+  <figure><a href="project2_photos/part_2_4_oraple_level0_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_gaussian_img0.jpg" alt="Level 0"></a><figcaption>Level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level1_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level1_gaussian_img0.jpg" alt="Level 1"></a><figcaption>Level 1</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_gaussian_img0.jpg" alt="Level 2"></a><figcaption>Level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level3_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level3_gaussian_img0.jpg" alt="Level 3"></a><figcaption>Level 3</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_gaussian_img0.jpg" alt="Level 4"></a><figcaption>Level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level5_gaussian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level5_gaussian_img0.jpg" alt="Level 5"></a><figcaption>Level 5</figcaption></figure>
+</div>
+        <h3>Apple, Laplacian stack</h3>
+<div class="row tight">
+  <figure><a href="project2_photos/part_2_4_oraple_level0_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_laplacian_img0.jpg" alt="Level 0"></a><figcaption>Level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level1_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level1_laplacian_img0.jpg" alt="Level 1"></a><figcaption>Level 1</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_laplacian_img0.jpg" alt="Level 2"></a><figcaption>Level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level3_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level3_laplacian_img0.jpg" alt="Level 3"></a><figcaption>Level 3</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_laplacian_img0.jpg" alt="Level 4"></a><figcaption>Level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level5_laplacian_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level5_laplacian_img0.jpg" alt="Level 5"></a><figcaption>Level 5</figcaption></figure>
+</div>
+        <h3>Orange, Gaussian stack</h3>
+<div class="row tight">
+  <figure><a href="project2_photos/part_2_4_oraple_level0_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_gaussian_img1.jpg" alt="Level 0"></a><figcaption>Level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level1_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level1_gaussian_img1.jpg" alt="Level 1"></a><figcaption>Level 1</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_gaussian_img1.jpg" alt="Level 2"></a><figcaption>Level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level3_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level3_gaussian_img1.jpg" alt="Level 3"></a><figcaption>Level 3</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_gaussian_img1.jpg" alt="Level 4"></a><figcaption>Level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level5_gaussian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level5_gaussian_img1.jpg" alt="Level 5"></a><figcaption>Level 5</figcaption></figure>
+</div>
+        <h3>Orange, Laplacian stack</h3>
+<div class="row tight">
+  <figure><a href="project2_photos/part_2_4_oraple_level0_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_laplacian_img1.jpg" alt="Level 0"></a><figcaption>Level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level1_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level1_laplacian_img1.jpg" alt="Level 1"></a><figcaption>Level 1</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_laplacian_img1.jpg" alt="Level 2"></a><figcaption>Level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level3_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level3_laplacian_img1.jpg" alt="Level 3"></a><figcaption>Level 3</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_laplacian_img1.jpg" alt="Level 4"></a><figcaption>Level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level5_laplacian_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level5_laplacian_img1.jpg" alt="Level 5"></a><figcaption>Level 5</figcaption></figure>
+</div>
+        <h3>Recreating Figure 3.42</h3>
+        <p>Each row below is one level of the Laplacian stack (levels 0, 2, and 4, from high to low frequencies). The first column is the apple multiplied by the mask, the second column is the orange multiplied by the mask, and the third column is their sum. The last row is the sum over all levels.</p>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_oraple_level0_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_masked_img0.jpg" alt="Apple, level 0"></a><figcaption>Apple, level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level0_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_masked_img1.jpg" alt="Orange, level 0"></a><figcaption>Orange, level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level0_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level0_blended.jpg" alt="Blended, level 0"></a><figcaption>Blended, level 0</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_oraple_level2_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_masked_img0.jpg" alt="Apple, level 2"></a><figcaption>Apple, level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_masked_img1.jpg" alt="Orange, level 2"></a><figcaption>Orange, level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level2_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level2_blended.jpg" alt="Blended, level 2"></a><figcaption>Blended, level 2</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_oraple_level4_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_masked_img0.jpg" alt="Apple, level 4"></a><figcaption>Apple, level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_masked_img1.jpg" alt="Orange, level 4"></a><figcaption>Orange, level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_level4_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_level4_blended.jpg" alt="Blended, level 4"></a><figcaption>Blended, level 4</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_oraple_masked_img0_sum.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_masked_img0_sum.jpg" alt="Apple, all levels"></a><figcaption>Apple, all levels</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_masked_img1_sum.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_masked_img1_sum.jpg" alt="Orange, all levels"></a><figcaption>Orange, all levels</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_oraple_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_oraple_blended.jpg" alt="Oraple"></a><figcaption>Oraple</figcaption></figure>
+</div>
+        <h2>Part 2.4: Multiresolution Blending</h2>
+        <p>To blend two images, I build a Laplacian stack for each image and a Gaussian stack for the mask. At each level, I combine the two Laplacian levels using the mask at that level as the weights, and then sum over all the levels to get the final image.</p>
+        <div class="formula">
+            <i>L</i><sub><i>i</i></sub> = (1 &minus; <i>M</i><sub><i>i</i></sub>) <i>A</i><sub><i>i</i></sub> + <i>M</i><sub><i>i</i></sub> <i>B</i><sub><i>i</i></sub>
+        </div>
+        <p class="notation"><strong>Notation.</strong> <i>A</i><sub><i>i</i></sub> and <i>B</i><sub><i>i</i></sub> are level <i>i</i> of the Laplacian stacks of the two images, <i>M</i><sub><i>i</i></sub> is level <i>i</i> of the Gaussian stack of the mask, and <i>L</i><sub><i>i</i></sub> is level <i>i</i> of the blended stack.</p>
+        <p>Since the mask gets blurrier at every level, the low frequencies are blended over a wide region and the high frequencies are blended over a narrow one, which hides the seam. For the oraple above, the mask is a step function, with the left half set to 0 and the right half set to 1. For the two blends below, I select the mask by clicking a polygon around the region I want to keep from the second image.</p>
+        <h3>Surfer on a sand dune</h3>
+        <p>The crest of this sand dune is shaped like a wave, so I put a surfer on it. This blend uses an irregular mask drawn around one of the surfers and his board, with 5 levels and &sigma; = 2 at the first level.</p>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_img0.jpg" alt="Dune"></a><figcaption>Dune</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_img1.jpg" alt="Surfers"></a><figcaption>Surfers</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_mask.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_mask.jpg" alt="Mask"></a><figcaption>Mask</figcaption></figure>
+</div>
+<div class="row">
+  <figure style="flex: 0 0 760px; max-width: 100%;"><a href="project2_photos/part_2_4_surfer_dune_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_blended.jpg" alt="Blended"></a><figcaption>Blended</figcaption></figure>
+</div>
+        <p>This is my favorite result, so below are the masked input images and the Laplacian stacks, in the same layout as the oraple above.</p>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_img0_masked.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_img0_masked.jpg" alt="Dune, masked input"></a><figcaption>Dune, masked input</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_img1_masked.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_img1_masked.jpg" alt="Surfer, masked input"></a><figcaption>Surfer, masked input</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level0_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level0_masked_img0.jpg" alt="Dune, level 0"></a><figcaption>Dune, level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level0_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level0_masked_img1.jpg" alt="Surfer, level 0"></a><figcaption>Surfer, level 0</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level0_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level0_blended.jpg" alt="Blended, level 0"></a><figcaption>Blended, level 0</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level2_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level2_masked_img0.jpg" alt="Dune, level 2"></a><figcaption>Dune, level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level2_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level2_masked_img1.jpg" alt="Surfer, level 2"></a><figcaption>Surfer, level 2</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level2_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level2_blended.jpg" alt="Blended, level 2"></a><figcaption>Blended, level 2</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level4_masked_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level4_masked_img0.jpg" alt="Dune, level 4"></a><figcaption>Dune, level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level4_masked_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level4_masked_img1.jpg" alt="Surfer, level 4"></a><figcaption>Surfer, level 4</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_level4_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_level4_blended.jpg" alt="Blended, level 4"></a><figcaption>Blended, level 4</figcaption></figure>
+</div>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_surfer_dune_masked_img0_sum.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_masked_img0_sum.jpg" alt="Dune, all levels"></a><figcaption>Dune, all levels</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_masked_img1_sum.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_masked_img1_sum.jpg" alt="Surfer, all levels"></a><figcaption>Surfer, all levels</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_surfer_dune_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_surfer_dune_blended.jpg" alt="Blended"></a><figcaption>Blended</figcaption></figure>
+</div>
+        <h3>Earth on an ice cream sundae</h3>
+        <p>Here I replace the cherry on top of an ice cream sundae with the Earth. The mask is a circle around the Earth. This blend uses 4 levels and &sigma; = 1 at the first level.</p>
+<div class="row">
+  <figure><a href="project2_photos/part_2_4_earth_sundae_img0.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_earth_sundae_img0.jpg" alt="Sundae"></a><figcaption>Sundae</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_earth_sundae_img1.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_earth_sundae_img1.jpg" alt="Earth"></a><figcaption>Earth</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_earth_sundae_mask.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_earth_sundae_mask.jpg" alt="Mask"></a><figcaption>Mask</figcaption></figure>
+  <figure><a href="project2_photos/part_2_4_earth_sundae_blended.jpg" target="_blank" rel="noopener"><img src="project2_photos/part_2_4_earth_sundae_blended.jpg" alt="Blended"></a><figcaption>Blended</figcaption></figure>
+</div>
+        <p>The photos for these two blends are from Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:La_horde_-_Surfers_riding_a_wave_in_Paea,_Tahiti.jpg" target="_blank" rel="noopener">surfers</a> by Brigitte Bourger, <a href="https://commons.wikimedia.org/wiki/File:006_Dune_45_in_Sossusvlei_at_sunrise_Photo_by_Giles_Laurent.jpg" target="_blank" rel="noopener">dune</a> by Giles Laurent, <a href="https://commons.wikimedia.org/wiki/File:Ice_cream_sundae.jpg" target="_blank" rel="noopener">sundae</a> by Renee Comet, and <a href="https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg" target="_blank" rel="noopener">Earth</a> by NASA. Before blending, I flipped the dune horizontally and resized it to match the surfer photo, cropped the sundae, and resized the Earth to the size of the cherry and placed it at the same position.</p>
+
+        <h2>Most Important Thing I Learned</h2>
+        <p>The most important thing I learned is that an image can be split into low and high frequencies, and that each can be changed separately. Sharpening, hybrid images, and multiresolution blending all use the same idea: blur the image to get the low frequencies, subtract to get the high frequencies, and then recombine them in a different way.</p>
+    </div>
+</body>
+</html>
