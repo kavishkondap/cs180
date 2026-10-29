@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS 180 Project 4</title>
+<style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background-color: beige;
+            color: #3b332a;
+            margin: 0;
+            padding: 60px 20px 100px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.3em;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        h1 + p {
+            color: #6b6152;
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 60px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8cfba;
+            letter-spacing: 0.5px;
+        }
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+            font-weight: normal;
+        }
+        p {
+            max-width: 760px;
+            line-height: 1.65;
+            color: #4a4234;
+        }
+        a {
+            color: #6b4f2a;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        a:hover {
+            border-bottom-color: #6b4f2a;
+        }
+        .back {
+            display: inline-block;
+            margin-bottom: 28px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-start;
+            margin-top: 24px;
+        }
+        .row > figure {
+            flex: 1 1 0;
+            min-width: 240px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 22px;
+            margin-top: 24px;
+        }
+        figure {
+            margin: 0;
+            text-align: center;
+        }
+        figure > a {
+            display: block;
+            border-bottom: none;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(59, 51, 42, 0.18);
+            transition: box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        figure > a:hover img {
+            box-shadow: 0 4px 16px rgba(59, 51, 42, 0.35);
+            opacity: 0.9;
+        }
+        figcaption {
+            margin-top: 8px;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8a8071;
+        }
+        figcaption span {
+            display: block;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            font-size: 0.95em;
+            color: #a89f8f;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 24px;
+            font-size: 0.92em;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px 14px 8px 0;
+            border-bottom: 1px solid #ded5c0;
+        }
+        th {
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            color: #8a8071;
+        }
+        code {
+            font-family: "SF Mono", Menlo, monospace;
+            font-size: 0.88em;
+            background: #ece4d0;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+        .formula {
+            max-width: 760px;
+            margin: 22px 0;
+            padding: 18px 22px;
+            background: #f1ead9;
+            border-left: 2px solid #c9bda0;
+            border-radius: 4px;
+            font-size: 1.12em;
+            line-height: 1.9;
+            text-align: center;
+            color: #3b332a;
+        }
+        .formula .where {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.72em;
+            line-height: 1.6;
+            color: #6b6152;
+            text-align: left;
+        }
+        .formula i {
+            font-size: 1.02em;
+        }
+        .note {
+            border-left: 2px solid #d8cfba;
+            padding-left: 16px;
+            color: #6b6152;
+            font-style: italic;
+        }
+        .notation {
+            max-width: 760px;
+            margin-top: 28px;
+            padding-left: 16px;
+            border-left: 2px solid #d8cfba;
+            font-size: 0.85em;
+            line-height: 1.75;
+            color: #6b6152;
+        }
+        .hint {
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #a89f8f;
+            margin-top: 14px;
+        }
+        pre {
+            max-width: 900px;
+            margin-top: 22px;
+            padding: 18px 22px;
+            background: #f1ead9;
+            border-left: 2px solid #c9bda0;
+            border-radius: 4px;
+            font-family: "SF Mono", Menlo, monospace;
+            font-size: 0.8em;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .row.tight {
+            gap: 10px;
+        }
+        .row.tight > figure {
+            min-width: 110px;
+        }
+
+        * { box-sizing: border-box; }
+        .homography-info { margin-top: 22px; }
+        h4 { font-weight: normal; color: #6b4f2a; line-height: 1.65; margin-bottom: 0; }
+        .row.sources > figure { min-width: 180px; }
+        .row.results > figure { min-width: 280px; }
+        .row.rectification { align-items: center; }
+        .row.rectification > figure { min-width: 200px; }
+        .row.crop img { image-rendering: pixelated; }
+        .table-wrap { overflow-x: auto; }
+        .matrix { white-space: pre; }
+        @media (max-width: 600px) {
+            body { padding-top: 32px; }
+            h1 { font-size: 1.9em; }
+            .row > figure, .row.results > figure { flex-basis: 100%; min-width: 0; }
+            .row.sources > figure { flex-basis: 100%; min-width: 0; }
+            .row.rectification > figure { flex-basis: 100%; min-width: 0; }
+        }
+        @media print {
+            body { padding: 0; }
+            .back { display: none; }
+            figure { break-inside: avoid; }
+            h2, h3 { break-after: avoid; }
+        }
+</style>
+</head>
+<body>
+<main class="container">
+<a class="back" href="index.html">&larr; Portfolio</a>
+<h1>CS 180 Project 4</h1>
+<p>Image Warping and Mosaicing &middot; Kavish Kondap</p>
+<h2>Overview</h2>
+<p>In this part, I recover homographies from corresponding points, use inverse warping to rectify images, and blend overlapping photos into mosaics. I implement nearest neighbor and bilinear interpolation and compare their results.</p>
+<h2>A.1: Shoot the Pictures</h2>
+<p>I use six sets of three overlapping photos: a gate, a sculpture, a street intersection, a living room, a vertical portrait, and a cathedral interior from OpenCV’s stitching test data. Each set shows the same scene from different directions. It's important to keep the COP of the camera still while rotating, especially for scenes with objects with different depths, since this prevents parallax/warping effects. The source images are shown with each mosaic in A.4. I took photos on my iPhone 16 Plus, and resize the mosaic inputs to a maximum dimension of 1400 pixels before selecting points and warping. The two rectification inputs are 768 × 1024.</p>
+<h2>A.2: Recover Homographies</h2>
+<p>A homography maps a point in one image to a point in another. I choose to use the (row, column) convention rather than the (x, y) convention and set the bottom-right entry of H, the transformation matrix, to 1, leaving eight unknowns. After multiplying by H, I divide the first two coordinates of the output pose vector by the third to normalize.</p>
+<pre class="homography-equation">[ r&prime; ]         [ h1  h2  h3 ] [ r ]
+[ c&prime; ] &sim; H p = [ h4  h5  h6 ] [ c ]
+[  1 ]         [ h7  h8   1 ] [ 1 ]</pre>
+<p>Rearranging the two coordinate equations gives two linear equations for each correspondence. I stack all the row equations followed by all the column equations, then solve Ah = b with <code>np.linalg.lstsq</code>.</p>
+<pre>[ r  c  1  0  0  0  &minus;rr&prime;  &minus;cr&prime; ] h = r&prime;
+[ 0  0  0  r  c  1  &minus;rc&prime;  &minus;cc&prime; ] h = c&prime;
+
+h = [h1, h2, h3, h4, h5, h6, h7, h8]ᵀ</pre>
+<p>Four pairs are enough to solve for H, but more points make the estimate less sensitive to individual errors. For these mosaics, I use 12 pairs spread across each overlap. The numbered correspondences and recovered matrices are shown with each result below.</p>
+<h2>A.3: Warp the Images</h2>
+<p>In order to determine the size of the output image, I first transform the image corners to find the output bounds, then create a grid over that region. For each output pixel, I apply H<sup>−1</sup> to find the corresponding position in the input. This inverse mapping avoids the holes that forward warping can leave. Positions outside the input image are filled with zeros.</p>
+<h3>Interpolation</h3>
+<p>Nearest neighbor rounds the input coordinates to the closest pixel. Bilinear interpolation takes a weighted average of the four surrounding pixels. If a and b are the fractional parts of the row and column coordinates, the weights are:</p>
+<div class="formula">(1 &minus; a)(1 &minus; b), &nbsp; a(1 &minus; b), &nbsp; (1 &minus; a)b, &nbsp; ab</div>
+<h3>Rectification</h3>
+<p>I select the four corners of each object in top-left, top-right, bottom-right, bottom-left order and map them to a rectangle. I use 600 × 400 for the sign and 400 × 600 for the framed drawing. I warp the region around each object and crop the result to the target rectangle.</p>
+<h3>Sign on a desk</h3>
+<div class="row rectification"><figure><a href="project4_photos/rect1.jpg" target="_blank" rel="noopener"><img src="project4_photos/rect1.jpg" width="768" height="1024" loading="lazy" alt="Original"></a><figcaption>Original</figcaption></figure><figure><a href="project4_photos/rect1_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/rect1_nearest_neighbor.png" width="600" height="400" loading="lazy" alt="Nearest neighbor"></a><figcaption>Nearest neighbor</figcaption></figure><figure><a href="project4_photos/rect1_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/rect1_bilinear.png" width="600" height="400" loading="lazy" alt="Bilinear"></a><figcaption>Bilinear</figcaption></figure></div>
+
+<div class="homography-info"><h4>Selected corners and homography</h4>
+<div class="row "><figure><a href="project4_photos/rect1_points.png" target="_blank" rel="noopener"><img src="project4_photos/rect1_points.png" width="700" height="600" loading="lazy" alt="Four selected corners"></a><figcaption>Four selected corners</figcaption></figure></div>
+
+<pre class="matrix">H =
+[  4.252434  -2.512802  -531.940830 ]
+[  6.276475   3.188584  -3130.249264 ]
+[  0.002602   0.000619   1.000000 ]</pre></div>
+<h3>Framed drawing</h3>
+<div class="row rectification"><figure><a href="project4_photos/rect2.jpg" target="_blank" rel="noopener"><img src="project4_photos/rect2.jpg" width="768" height="1024" loading="lazy" alt="Original"></a><figcaption>Original</figcaption></figure><figure><a href="project4_photos/rect2_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/rect2_nearest_neighbor.png" width="400" height="600" loading="lazy" alt="Nearest neighbor"></a><figcaption>Nearest neighbor</figcaption></figure><figure><a href="project4_photos/rect2_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/rect2_bilinear.png" width="400" height="600" loading="lazy" alt="Bilinear"></a><figcaption>Bilinear</figcaption></figure></div>
+
+<div class="homography-info"><h4>Selected corners and homography</h4>
+<div class="row "><figure><a href="project4_photos/rect2_points.png" target="_blank" rel="noopener"><img src="project4_photos/rect2_points.png" width="700" height="600" loading="lazy" alt="Four selected corners"></a><figcaption>Four selected corners</figcaption></figure></div>
+
+<pre class="matrix">H =
+[  4.046045   0.950208  -640.991687 ]
+[ -0.271181   4.166321  -955.320175 ]
+[ -0.000488   0.001181   1.000000 ]</pre></div>
+<p>Both methods straighten the edges of the sign and frame. Nearest neighbor makes the enlarged text and diagonal lines look more jagged, while bilinear interpolation smooths them. The framed drawing is still soft because it occupies a small part of the original photo; interpolation cannot recover detail that was not captured.</p>
+<h3>Close-up comparison</h3>
+<p>Below is the same 240 &times; 120 crop from each rectified sign, displayed enlarged without additional smoothing.</p>
+<div class="row crop"><figure><a href="project4_photos/rect1_nearest_neighbor_crop.png" target="_blank" rel="noopener"><img src="project4_photos/rect1_nearest_neighbor_crop.png" width="240" height="120" loading="lazy" alt="Nearest neighbor"></a><figcaption>Nearest neighbor</figcaption></figure><figure><a href="project4_photos/rect1_bilinear_crop.png" target="_blank" rel="noopener"><img src="project4_photos/rect1_bilinear_crop.png" width="240" height="120" loading="lazy" alt="Bilinear"></a><figcaption>Bilinear</figcaption></figure></div>
+
+<h3>Speed and quality</h3>
+<p>The table measures only the image warps in one run. For each mosaic, I sum the times for all three source images. Mask warping, blending, plotting, and saving files are excluded. Bilinear interpolation takes longer because it reads and combines four pixels for each sample. Nearest neighbor is faster, but its blocky edges are more visible when the image is enlarged.</p>
+<div class="table-wrap"><table><thead><tr><th>Input</th><th>Nearest neighbor (s)</th><th>Bilinear (s)</th></tr></thead><tbody><tr><td>rect1</td><td>0.050</td><td>0.093</td></tr><tr><td>rect2</td><td>0.008</td><td>0.029</td></tr><tr><td>mosaic1</td><td>0.366</td><td>0.763</td></tr><tr><td>mosaic2</td><td>0.328</td><td>0.745</td></tr><tr><td>mosaic3</td><td>0.300</td><td>0.739</td></tr><tr><td>mosaic4</td><td>0.290</td><td>0.583</td></tr><tr><td>mosaic5</td><td>0.328</td><td>0.762</td></tr><tr><td>mosaic6</td><td>0.051</td><td>0.151</td></tr></tbody></table></div>
+<h2>A.4: Blend the Images into a Mosaic</h2>
+<p>I keep the middle photo as the reference and transform the two outer photos into its coordinate system. I use the transformed image corners to find a shared canvas and place each warped image at its corresponding offset.</p>
+<p>To blend the overlap, I give each input pixel a weight based on its distance from the nearest image edge. I warp these weights with the same homography as the image, then divide the weighted sum of the images by the sum of the weights. The masks are separate from the image values, so black pixels in a photo are kept. Pixels with no coverage remain black.</p>
+<div class="formula">I(p) = &sum;<sub>i</sub> w<sub>i</sub>(p)I<sub>i</sub>(p) / &sum;<sub>i</sub> w<sub>i</sub>(p)</div>
+
+<h3>Gate</h3>
+<div class="row sources"><figure><a href="project4_photos/mosaic1_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_1.jpg" width="1050" height="1400" loading="lazy" alt="Left view"></a><figcaption>Left view</figcaption></figure><figure><a href="project4_photos/mosaic1_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_2.jpg" width="1050" height="1400" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic1_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_3.jpg" width="1050" height="1400" loading="lazy" alt="Right view"></a><figcaption>Right view</figcaption></figure></div>
+
+<div class="row results"><figure><a href="project4_photos/mosaic1_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_nearest_neighbor_preview.jpg" width="1800" height="1275" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic1_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_bilinear_preview.jpg" width="1800" height="1275" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+
+
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic1_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+
+<div class="row "><figure><a href="project4_photos/mosaic1_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic1_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+
+
+<p>The matrices below map the left and right views into the middle view. Coordinates are (row, column), and each matrix is normalized so its bottom-right entry is 1.</p>
+<pre class="matrix">Left &rarr; middle
+[  1.473381   0.682421  -585.280269 ]
+[ -0.268954   1.627935  -642.884546 ]
+[  0.000015   0.000630   1.000000 ]
+
+Right &rarr; middle
+[  0.938537  -0.392880   17.322251 ]
+[  0.188611   0.624050   379.486632 ]
+[  0.000040  -0.000377   1.000000 ]</pre></div>
+<h3>Sculpture</h3>
+<div class="row sources"><figure><a href="project4_photos/mosaic2_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_1.jpg" width="1050" height="1400" loading="lazy" alt="Left view"></a><figcaption>Left view</figcaption></figure><figure><a href="project4_photos/mosaic2_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_2.jpg" width="1050" height="1400" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic2_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_3.jpg" width="1050" height="1400" loading="lazy" alt="Right view"></a><figcaption>Right view</figcaption></figure></div>
+
+<div class="row results"><figure><a href="project4_photos/mosaic2_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_nearest_neighbor_preview.jpg" width="1800" height="1425" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic2_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_bilinear_preview.jpg" width="1800" height="1425" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+
+
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic2_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+
+<div class="row "><figure><a href="project4_photos/mosaic2_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic2_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+
+
+<p>The matrices below map the left and right views into the middle view. Coordinates are (row, column), and each matrix is normalized so its bottom-right entry is 1.</p>
+<pre class="matrix">Left &rarr; middle
+[  1.544234   0.579551  -510.745059 ]
+[ -0.094976   1.735946  -820.747629 ]
+[  0.000016   0.000686   1.000000 ]
+
+Right &rarr; middle
+[  0.902098  -0.276933   62.726718 ]
+[  0.041494   0.654747   399.540285 ]
+[  0.000011  -0.000345   1.000000 ]</pre></div>
+<h3>Street intersection</h3>
+<div class="row sources"><figure><a href="project4_photos/mosaic3_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_1.jpg" width="1050" height="1400" loading="lazy" alt="Left view"></a><figcaption>Left view</figcaption></figure><figure><a href="project4_photos/mosaic3_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_2.jpg" width="1050" height="1400" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic3_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_3.jpg" width="1050" height="1400" loading="lazy" alt="Right view"></a><figcaption>Right view</figcaption></figure></div>
+
+<div class="row results"><figure><a href="project4_photos/mosaic3_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_nearest_neighbor_preview.jpg" width="1800" height="1476" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic3_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_bilinear_preview.jpg" width="1800" height="1476" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+
+
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic3_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+
+<div class="row "><figure><a href="project4_photos/mosaic3_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic3_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+
+
+<p>The matrices below map the left and right views into the middle view. Coordinates are (row, column), and each matrix is normalized so its bottom-right entry is 1.</p>
+<pre class="matrix">Left &rarr; middle
+[  1.440667   0.547719  -422.192797 ]
+[ -0.142736   1.628362  -648.649098 ]
+[  0.000013   0.000591   1.000000 ]
+
+Right &rarr; middle
+[  0.947761  -0.287125   36.066898 ]
+[  0.125305   0.742975   256.060895 ]
+[  0.000043  -0.000284   1.000000 ]</pre></div>
+<h3>Living room: second capture</h3>
+<p>I repeat the living-room mosaic with a new set of photos. The lamp and sofas align more closely than in the first set, and the lamp has much less doubling. The result covers a narrower part of the room. There are still doubled edges around the controller, papers, and bag on the table, so the foreground is not fully aligned.</p>
+<div class="row sources"><figure><a href="project4_photos/mosaic5_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_1.jpg" width="1050" height="1400" loading="lazy" alt="Left view"></a><figcaption>Left view</figcaption></figure><figure><a href="project4_photos/mosaic5_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_2.jpg" width="1050" height="1400" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic5_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_3.jpg" width="1050" height="1400" loading="lazy" alt="Right view"></a><figcaption>Right view</figcaption></figure></div>
+<div class="row results"><figure><a href="project4_photos/mosaic5_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_nearest_neighbor_preview.jpg" width="1602" height="1671" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic5_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_bilinear_preview.jpg" width="1602" height="1671" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic5_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+<div class="row "><figure><a href="project4_photos/mosaic5_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic5_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+
+<p>The matrices map the two outer views into the middle view, in (row, column) coordinates.</p>
+<pre class="matrix">Left &rarr; middle
+[  1.128501   0.142148  -128.147364 ]
+[ -0.036590   1.223340  -273.339950 ]
+[ -0.000033   0.000190   1.000000 ]
+
+Right &rarr; middle
+[  0.953544  -0.065759   9.601904 ]
+[ -0.030258   0.888623   150.867606 ]
+[ -0.000023  -0.000134   1.000000 ]</pre></div>
+<h3>Portrait</h3>
+<p>For this set, I combine three vertically overlapping photos of my friend. I keep the torso image as the reference and warp the upper and lower views into it. The result includes his head and feet in one image. The shirt mostly lines up, but there is some ghosting near the neckline and arms. The door frame also changes direction between views, showing that the whole scene is not aligned exactly.</p>
+<div class="row sources"><figure><a href="project4_photos/mosaic6_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_1.jpg" width="1050" height="1400" loading="lazy" alt="Top view"></a><figcaption>Top view</figcaption></figure><figure><a href="project4_photos/mosaic6_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_2.jpg" width="1050" height="1400" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic6_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_3.jpg" width="1050" height="1400" loading="lazy" alt="Bottom view"></a><figcaption>Bottom view</figcaption></figure></div>
+<div class="row results"><figure><a href="project4_photos/mosaic6_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_nearest_neighbor_preview.jpg" width="859" height="1800" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic6_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_bilinear_preview.jpg" width="859" height="1800" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic6_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+<div class="row "><figure><a href="project4_photos/mosaic6_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic6_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+
+<p>The matrices map the two outer views into the middle view, in (row, column) coordinates.</p>
+<pre class="matrix">Top &rarr; middle
+[  1.800853  -0.030390  -968.838597 ]
+[  0.270997   1.586581  -330.421390 ]
+[  0.000502  -0.000007   1.000000 ]
+
+Bottom &rarr; middle
+[  0.372109  -0.030860   680.521667 ]
+[ -0.203510   0.732862   139.105932 ]
+[ -0.000375  -0.000037   1.000000 ]</pre></div>
+<h3>OpenCV sample</h3>
+<p>I use <code>a1.png</code>, <code>a2.png</code>, and <code>a3.png</code> from <a href="https://github.com/opencv/opencv_extra/tree/4.x/testdata/stitching">OpenCV’s stitching test data</a>. I apply the same homography, warping, and blending functions to these images.</p>
+<div class="row sources"><figure><a href="project4_photos/mosaic7_1.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_1.jpg" width="600" height="768" loading="lazy" alt="Left view"></a><figcaption>Left view</figcaption></figure><figure><a href="project4_photos/mosaic7_2.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_2.jpg" width="600" height="768" loading="lazy" alt="Middle view (reference)"></a><figcaption>Middle view (reference)</figcaption></figure><figure><a href="project4_photos/mosaic7_3.jpg" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_3.jpg" width="600" height="768" loading="lazy" alt="Right view"></a><figcaption>Right view</figcaption></figure></div>
+<div class="row results"><figure><a href="project4_photos/mosaic7_nearest_neighbor.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_nearest_neighbor_preview.jpg" width="1175" height="910" loading="lazy" alt="Nearest neighbor mosaic"></a><figcaption>Nearest neighbor mosaic</figcaption></figure><figure><a href="project4_photos/mosaic7_bilinear.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_bilinear_preview.jpg" width="1175" height="910" loading="lazy" alt="Bilinear mosaic"></a><figcaption>Bilinear mosaic</figcaption></figure></div>
+<div class="homography-info"><h4>Correspondences and recovered homographies</h4>
+<div class="row "><figure><a href="project4_photos/mosaic7_1_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_1_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 1 and 2: corresponding points"></a><figcaption>Views 1 and 2: corresponding points</figcaption></figure></div>
+<div class="row "><figure><a href="project4_photos/mosaic7_2_pair_points.png" target="_blank" rel="noopener"><img src="project4_photos/mosaic7_2_pair_points.png" width="1400" height="600" loading="lazy" alt="Views 2 and 3: corresponding points"></a><figcaption>Views 2 and 3: corresponding points</figcaption></figure></div>
+<p>The matrices below map the left and right views into the middle view. Coordinates are (row, column), and each matrix is normalized so its bottom-right entry is 1.</p>
+<pre class="matrix">Left &rarr; middle
+[  1.145027   0.343400  -121.400667 ]
+[ -0.166240   1.267995  -144.674706 ]
+[ -0.000028   0.000486   1.000000 ]
+
+Right &rarr; middle
+[  0.869129  -0.271234   72.652664 ]
+[  0.108870   0.742297   127.867675 ]
+[ -0.000044  -0.000388   1.000000 ]</pre></div>
+</main>
+</body>
+</html>
